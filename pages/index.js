@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 // import Image from 'next/image'
 // import styles from '../styles/Home.module.css'
 import { Button, Table, Form, Pagination } from 'react-bootstrap';
-import data from './mock-data.json'
+// import data from './mock-data.json'
 import axios from 'axios'
 
 export default function Home() {
@@ -13,9 +13,10 @@ export default function Home() {
   const [search, setSearch] = useState('');
 
   const load = async () => {
+    // console.log('env', process.env.BASE_URL)
     try {
-      const products = await axios.get(`https://ngodingbentar-be.herokuapp.com/api/products?pageNumber=${active}&name=${search}&category=&min=0&max=0&order=newest`)
-      console.log('products', products)
+      const products = await axios.get(`${process.env.BASE_URL}/api/products?pageNumber=${active}&name=${search}&category=&min=0&max=0&order=newest`)
+      // console.log('products', products)
       setContacts(products.data.products)
       setPages(products.data.pages)
     }catch(err){
@@ -25,7 +26,7 @@ export default function Home() {
 
   const doSearch = async () => {
     try {
-      const products = await axios.get(`https://ngodingbentar-be.herokuapp.com/api/products?pageNumber=1&name=${search}&category=&min=0&max=0&order=newest`)
+      const products = await axios.get(`${process.env.BASE_URL}/api/products?pageNumber=1&name=${search}&category=&min=0&max=0&order=newest`)
       // console.log('products', products)
       setContacts(products.data.products)
       setPages(products.data.pages)
@@ -40,7 +41,7 @@ export default function Home() {
     setActive(number)
     console.log('number', number)
     try {
-      const products = await axios.get(`https://ngodingbentar-be.herokuapp.com/api/products?pageNumber=${number}&name=${search}&category=&min=0&max=0&order=newest`)
+      const products = await axios.get(`${process.env.BASE_URL}/api/products?pageNumber=${number}&name=${search}&category=&min=0&max=0&order=newest`)
       // console.log('products', products)
       setContacts(products.data.products)
     }catch(err){
